@@ -48,11 +48,11 @@ ON c.customer_id = i.customer_id
 	INNER JOIN invoice_line AS il
 	ON i.invoice_id = il.invoice_id
 WHERE il.track_id IN (
-						SELECT track_id FROM track
-						INNER JOIN genre
-						ON track.genre_id = genre.genre_id
-						WHERE genre.name ILIKE 'Rock'
-					 )
+			SELECT track_id FROM track
+			INNER JOIN genre
+			ON track.genre_id = genre.genre_id
+			WHERE genre.name ILIKE 'Rock'
+		     )
 ORDER BY c.email ASC;
 
 
@@ -63,12 +63,12 @@ FROM artist AS ar
 INNER JOIN album AS al
 ON ar.artist_id = al.artist_id
 WHERE al.album_id IN (
-						SELECT t.album_id
-						FROM track AS t
-						INNER JOIN genre AS g
-						ON t.genre_id = g.genre_id
-						WHERE g.name ILIKE 'Rock'
-					 )
+			SELECT t.album_id
+			FROM track AS t
+			INNER JOIN genre AS g
+			ON t.genre_id = g.genre_id
+			WHERE g.name ILIKE 'Rock'
+		     )
 GROUP BY ar.name
 ORDER BY COUNT(al.artist_id) DESC
 LIMIT 10;
@@ -117,8 +117,8 @@ WITH cte AS
 	 ON i.invoice_id = il.invoice_id
 	  INNER JOIN track AS t
 	  ON il.track_id = t.track_id
-	  	INNER JOIN genre AS g
-		ON t.genre_id = g.genre_id
+	   INNER JOIN genre AS g
+	   ON t.genre_id = g.genre_id
 	GROUP BY c.country,g.name
 )
 SELECT country,genre_name,count FROM cte
